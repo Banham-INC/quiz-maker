@@ -1,0 +1,73 @@
+{
+	"id": "9825becf-026f-4baa-8570-49cabdc016fb",
+	"prevId": "e4ab13fa-6680-4b0f-b7ef-ce74127e2473",
+	"version": "7",
+	"dialect": "postgresql",
+	"tables": {
+		"public.quiz-app_quizzes": {
+			"name": "quiz-app_quizzes",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "integer",
+					"primaryKey": true,
+					"notNull": true,
+					"identity": {
+						"type": "byDefault",
+						"name": "quiz-app_quizzes_id_seq",
+						"schema": "public",
+						"increment": "1",
+						"startWith": "1",
+						"minValue": "1",
+						"maxValue": "2147483647",
+						"cache": "1",
+						"cycle": false
+					}
+				},
+				"name": {
+					"name": "name",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"unique_id": {
+					"name": "unique_id",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"results_id": {
+					"name": "results_id",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"questions": {
+					"name": "questions",
+					"type": "text[]",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"results": {
+					"name": "results",
+					"type": "text[]",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"sequences": {},
+	"_meta": {
+		"columns": {},
+		"schemas": {},
+		"tables": {}
+	}
+}

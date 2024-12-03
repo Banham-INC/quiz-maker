@@ -30,11 +30,19 @@ export default function HomePage() {
 
       {!loading && (
         <div className="mx-auto mt-[10rem] max-w-2xl p-3">
+          <div className="w-2xl mb-[2rem]">
+            <a
+              href="/create"
+              className="rounded-md bg-blue-700 px-3 py-2 text-white"
+            >
+              Create new quiz
+            </a>
+          </div>
           <div className="flex w-full flex-col gap-2">
             {quiz?.map((z) => (
               <a
                 href={`/play/${z.unique_id}`}
-                className="smooth_transition flex w-full justify-between border border-blue-700/20 p-3 hover:border-blue-700/70"
+                className="smooth_transition rounded-md flex w-full justify-between border border-blue-700/20 p-3 hover:border-blue-700/70"
                 key={z.unique_id}
               >
                 {z.name}

@@ -22,6 +22,7 @@ export default function ResultsPage({ params }: Props) {
   const [quizData, setQuizData] = useState<QuizSelect | null>(null);
   const [resultsId, setResultsId] = useState("");
   const [confirmedResultsId, setResultsConfirmed] = useState(false);
+  const [active, setActive] = useState<number | undefined>(undefined);
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     (async () => {
@@ -88,17 +89,51 @@ export default function ResultsPage({ params }: Props) {
 
       {!loading && resultsId && quizData && (
         <div className="mx-auto mt-[10rem] max-w-2xl px-[2rem]">
-          <h1 className="text-xl font-bold">{quizData.name}</h1>
+          <h1 className="text-xl font-bold mb-[2rem]">{quizData.name}</h1>
           <div className="flex flex-col gap-3">
             {quizData.results?.map((r) => {
               const result = JSON.parse(r) as Result;
               return (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                 <div
-                  className="flex w-full justify-between rounded-md border border-black/30 p-3"
+                  className="flex w-full cursor-pointer flex-col rounded-md border border-black/30 p-3"
+                  onClick={() => {
+                    console.log(active);
+                    if (active !== quizData.results?.indexOf(r)) {
+                      setActive(quizData.results?.indexOf(r));
+                    } else {
+                      setActive(undefined);
+                    }
+                  }}
                   key={result.name}
                 >
-                  {result.name}
-                  <span className="text-emerald-700"> {result.correct?.length}</span>
+                  <div className="flex w-full justify-between">
+                    {result.name}
+                    <span className="text-emerald-700">
+                      {" "}
+                      {result.correct?.length}
+                    </span>
+                  </div>
+
+                  <div
+                    className={`smooth_transition ${active === quizData.results?.indexOf(r) ? "mt-[1rem] h-fit opacity-100" : "mt-0 h-0 opacity-0"}`}
+                  >
+                    {quizData.questions?.map((q) => {
+                      const question = JSON.parse(q) as Question;
+                      const correct = result.correct.find((f) => f.name === question.name)
+                      return (
+                        <div
+                          key={question.name}
+                          className="flex justify-between"
+                        >
+                          {question.name}
+                          <span className={`${correct ? "text-emerald-700" : "text-red-700"}`}>
+                            {question.options[question.correct_anwser]}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               );
             })}{" "}
